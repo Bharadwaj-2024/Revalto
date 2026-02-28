@@ -1,0 +1,48 @@
+<% layout('layouts/boilerplate') %>
+
+<h2 class="mb-4">Add New Property</h2>
+
+<div class="row">
+    <div class="col-md-8 offset-md-2">
+        <div class="card">
+            <div class="card-body">
+                <form action="/listings" method="post" novalidate class="needs-validation" enctype="multipart/form-data">
+                    <div class="mb-3">
+                        <label for="title" class="form-label">Property Title</label>
+                        <input name="listing[title]" id="title" placeholder="Enter property name" type="text" class="form-control" required>
+                        <div class="invalid-feedback">Please enter a property title.</div>
+                    </div>
+                    <div class="mb-3">
+                        <label for="description" class="form-label">Description</label>
+                        <textarea name="listing[description]" id="description" placeholder="Enter description" class="form-control" rows="4" required></textarea>
+                        <div class="invalid-feedback">Please enter a description.</div>
+                    </div>
+                    <div class="mb-3">
+                        <label for="price" class="form-label">Price (₹)</label>
+                        <input name="listing[price]" id="price" placeholder="Enter price" type="number" class="form-control" required min="1">
+                        <div class="invalid-feedback">Please enter a valid price.</div>
+                    </div>
+                    <div class="mb-3">
+                        <label for="location" class="form-label">Location</label>
+                        <input name="listing[location]" id="location" placeholder="Enter location" type="text" class="form-control" required>
+                        <div class="invalid-feedback">Please enter a location.</div>
+                    </div>
+                    <div class="mb-3">
+                        <label for="country" class="form-label">Country</label>
+                        <input name="listing[country]" id="country" placeholder="Enter country" type="text" class="form-control" required>
+                        <div class="invalid-feedback">Please enter a country.</div>
+                    </div>
+                    <div class="mb-3">
+                        <label for="image" class="form-label">Property Image</label>
+                        <input name="image" id="image" type="file" accept="image/*" class="form-control">
+                        <small class="text-muted">Upload a photo of the property</small>
+                    </div>
+                    <button type="submit" class="btn btn-primary">
+                        <i class="fas fa-plus me-2"></i>Add Property
+                    </button>
+                    <a href="/listings" class="btn btn-secondary ms-2">Cancel</a>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>

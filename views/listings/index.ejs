@@ -1,0 +1,48 @@
+<% layout('layouts/boilerplate') %>
+
+<h2 class="mb-4">All Properties</h2>
+
+<a href="/listings/new" class="btn btn-primary mb-4">
+    <i class="fas fa-plus me-2"></i>Add New Property
+</a>
+
+<div class="row">
+    <% for(let listing of all_listing) { %>
+        <div class="col-lg-4 col-md-6 mb-5">
+            <div class="property-card">
+                <!-- Card Header with Image -->
+                <div class="property-card-header">
+                    <% if(listing.image && listing.image.url) { %>
+                        <img src="<%= listing.image.url %>" alt="<%= listing.title %>" class="property-image">
+                    <% } else { %>
+                        <div class="property-placeholder">
+                            <i class="fas fa-home"></i>
+                        </div>
+                    <% } %>
+                    <div class="property-badge">For Sale</div>
+                </div>
+                <!-- Card Body -->
+                <div class="property-card-body">
+                    <h5 class="property-title"><%= listing.title %></h5>
+                    <p class="property-location">
+                        <i class="fas fa-map-marker-alt"></i>
+                        <%= listing.location %>, <%= listing.country %>
+                    </p>
+                    <p class="property-description">
+                        <%= listing.description ? listing.description.substring(0, 80) + '...' : 'Beautiful property available for sale.' %>
+                    </p>
+                    <div class="property-price">
+                        <span class="price-label">Price</span>
+                        <span class="price-value">&#8377; <%= listing.price.toLocaleString() %></span>
+                    </div>
+                </div>
+                <!-- Card Footer -->
+                <div class="property-card-footer">
+                    <a href="/listings/<%= listing._id %>" class="btn-read-more">
+                        View Details
+                    </a>
+                </div>
+            </div>
+        </div>
+    <% } %>
+</div>

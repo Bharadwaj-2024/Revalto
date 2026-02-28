@@ -1,0 +1,416 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>REvalto - Find Your Dream Property</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link rel="stylesheet" href="/styles.css">
+</head>
+<body>
+
+    <!-- Navbar -->
+    <nav class="navbar navbar-expand-lg navbar-dark bg-dark sticky-top">
+        <div class="container">
+            <a class="navbar-brand fw-bold" href="/listings">
+                <i class="fas fa-home me-2 navbar-brand-icon"></i>REvalto
+            </a>
+            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+            <div class="collapse navbar-collapse" id="navbarNav">
+                <ul class="navbar-nav me-auto mb-2 mb-lg-0">
+                    <li class="nav-item">
+                        <a class="nav-link active" href="/">Home</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="/listings">All Properties</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="/listings/new">Add Property</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="/listings/about">About</a>
+                    </li>
+                </ul>
+                <a href="/listings/new" class="btn btn-sm btn-nav-list">
+                    <i class="fas fa-plus me-1"></i>List Property
+                </a>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Hero Section -->
+    <section class="landing-hero">
+        <div class="container">
+            <div class="row align-items-center">
+                <div class="col-lg-6 hero-content">
+                    <span class="section-badge section-badge-hero">
+                        <i class="fas fa-sparkles me-1"></i> #1 Property Platform
+                    </span>
+                    <h1 class="hero-title mt-3">
+                        Find Your<br>
+                        <span class="gradient-text">Dream Property</span><br>
+                        With Ease
+                    </h1>
+                    <p class="hero-subtitle">
+                        Discover premium properties across India. Buy, sell, and explore real estate 
+                        listings with verified details, honest reviews, and transparent pricing.
+                    </p>
+                    <div class="hero-cta">
+                        <a href="/listings" class="btn-hero-primary">
+                            <i class="fas fa-search me-2"></i>Explore Properties
+                        </a>
+                        <a href="/listings/new" class="btn-hero-outline">
+                            <i class="fas fa-plus-circle me-2"></i>List Your Property
+                        </a>
+                    </div>
+                    <div class="hero-stats">
+                        <div class="hero-stat">
+                            <h3>500+</h3>
+                            <p>Properties</p>
+                        </div>
+                        <div class="hero-stat">
+                            <h3>200+</h3>
+                            <p>Happy Buyers</p>
+                        </div>
+                        <div class="hero-stat">
+                            <h3>50+</h3>
+                            <p>Cities</p>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-lg-6 hero-image-col d-none d-lg-block">
+                    <div class="hero-card-stack">
+                        <div class="floating-card floating-card-1">
+                            <div class="fc-icon purple"><i class="fas fa-building"></i></div>
+                            <div class="fc-title">Premium Villas</div>
+                            <p class="fc-desc">Luxury villas in top locations with world-class amenities</p>
+                        </div>
+                        <div class="floating-card floating-card-2">
+                            <div class="fc-icon blue"><i class="fas fa-chart-line"></i></div>
+                            <div class="fc-title">Smart Investments</div>
+                            <p class="fc-desc">Data-driven insights to help you make the best investment</p>
+                        </div>
+                        <div class="floating-card floating-card-3">
+                            <div class="fc-icon green"><i class="fas fa-star"></i></div>
+                            <div class="fc-title">Verified Reviews</div>
+                            <p class="fc-desc">Real reviews from real buyers and tenants</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Search Bar -->
+    <section class="search-section">
+        <div class="container">
+            <div class="search-bar-card">
+                <form action="/listings" method="GET">
+                    <div class="row g-3 align-items-end">
+                        <div class="col-md-4">
+                            <label class="form-label">Location</label>
+                            <div class="input-group">
+                                <span class="input-group-text bg-white border-end-0 search-input-icon">
+                                    <i class="fas fa-map-marker-alt text-muted"></i>
+                                </span>
+                                <input type="text" class="form-control border-start-0 search-input-field" placeholder="Enter city or area...">
+                            </div>
+                        </div>
+                        <div class="col-md-3">
+                            <label class="form-label">Property Type</label>
+                            <select class="form-control search-select">
+                                <option>All Types</option>
+                                <option>Villa</option>
+                                <option>Apartment</option>
+                                <option>House</option>
+                                <option>Plot</option>
+                            </select>
+                        </div>
+                        <div class="col-md-3">
+                            <label class="form-label">Price Range</label>
+                            <select class="form-control search-select">
+                                <option>Any Price</option>
+                                <option>Under ₹10 Lakh</option>
+                                <option>₹10L - ₹50L</option>
+                                <option>₹50L - ₹1 Cr</option>
+                                <option>Above ₹1 Cr</option>
+                            </select>
+                        </div>
+                        <div class="col-md-2">
+                            <a href="/listings" class="btn btn-search w-100">
+                                <i class="fas fa-search me-1"></i> Search
+                            </a>
+                        </div>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </section>
+
+    <!-- Features Section -->
+    <section class="features-section">
+        <div class="container">
+            <div class="text-center">
+                <span class="section-badge">Why Choose Us</span>
+                <h2 class="section-title">Everything You Need in<br>One Platform</h2>
+                <p class="section-desc">
+                    REvalto brings together the best tools and features to make your property 
+                    search simple, transparent, and trustworthy.
+                </p>
+            </div>
+            <div class="row g-4">
+                <div class="col-md-4">
+                    <div class="feature-card">
+                        <div class="feature-icon bg-1"><i class="fas fa-search-location"></i></div>
+                        <h5>Advanced Search</h5>
+                        <p>Find properties with powerful filters by location, price, type, and more to match your exact needs.</p>
+                    </div>
+                </div>
+                <div class="col-md-4">
+                    <div class="feature-card">
+                        <div class="feature-icon bg-2"><i class="fas fa-star-half-alt"></i></div>
+                        <h5>Reviews & Ratings</h5>
+                        <p>Read honest reviews and ratings from real buyers. Share your experience to help others decide.</p>
+                    </div>
+                </div>
+                <div class="col-md-4">
+                    <div class="feature-card">
+                        <div class="feature-icon bg-3"><i class="fas fa-shield-alt"></i></div>
+                        <h5>Verified Listings</h5>
+                        <p>All properties are verified with authentic images, accurate pricing, and genuine descriptions.</p>
+                    </div>
+                </div>
+                <div class="col-md-4">
+                    <div class="feature-card">
+                        <div class="feature-icon bg-4"><i class="fas fa-rupee-sign"></i></div>
+                        <h5>Best Prices</h5>
+                        <p>Competitive pricing with no hidden charges. Compare prices across locations and property types.</p>
+                    </div>
+                </div>
+                <div class="col-md-4">
+                    <div class="feature-card">
+                        <div class="feature-icon bg-5"><i class="fas fa-map-marked-alt"></i></div>
+                        <h5>Pan-India Coverage</h5>
+                        <p>Properties across 50+ cities in India — from metro hubs to serene countryside locations.</p>
+                    </div>
+                </div>
+                <div class="col-md-4">
+                    <div class="feature-card">
+                        <div class="feature-icon bg-6"><i class="fas fa-headset"></i></div>
+                        <h5>24/7 Support</h5>
+                        <p>Our dedicated support team is always available to help you with queries and property guidance.</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- How It Works -->
+    <section class="how-it-works">
+        <div class="container">
+            <div class="text-center">
+                <span class="section-badge">How It Works</span>
+                <h2 class="section-title">Simple Steps to Find<br>Your Property</h2>
+                <p class="section-desc">
+                    Getting started with REvalto is quick and easy. Follow these simple steps 
+                    to discover your perfect property.
+                </p>
+            </div>
+            <div class="row g-5 mt-2">
+                <div class="col-md-3">
+                    <div class="step-card">
+                        <div class="step-connector d-none d-md-block"></div>
+                        <div class="step-number">1</div>
+                        <h5>Browse Listings</h5>
+                        <p>Explore our wide collection of properties across multiple cities and categories.</p>
+                    </div>
+                </div>
+                <div class="col-md-3">
+                    <div class="step-card">
+                        <div class="step-connector d-none d-md-block"></div>
+                        <div class="step-number">2</div>
+                        <h5>View Details</h5>
+                        <p>Check property details, photos, location, pricing, and read buyer reviews.</p>
+                    </div>
+                </div>
+                <div class="col-md-3">
+                    <div class="step-card">
+                        <div class="step-connector d-none d-md-block"></div>
+                        <div class="step-number">3</div>
+                        <h5>Leave a Review</h5>
+                        <p>Share your thoughts with a star rating and comment to help the community.</p>
+                    </div>
+                </div>
+                <div class="col-md-3">
+                    <div class="step-card">
+                        <div class="step-number">4</div>
+                        <h5>Make It Yours</h5>
+                        <p>Connect with the seller, finalize the deal, and move into your dream property.</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Testimonials -->
+    <section class="testimonials-section">
+        <div class="container">
+            <div class="text-center">
+                <span class="section-badge">Testimonials</span>
+                <h2 class="section-title">What Our Users Say</h2>
+                <p class="section-desc">
+                    Hear from happy buyers and sellers who found their perfect property with REvalto.
+                </p>
+            </div>
+            <div class="row g-4">
+                <div class="col-md-4">
+                    <div class="testimonial-card">
+                        <div class="testimonial-stars">
+                            <i class="fas fa-star"></i>
+                            <i class="fas fa-star"></i>
+                            <i class="fas fa-star"></i>
+                            <i class="fas fa-star"></i>
+                            <i class="fas fa-star"></i>
+                        </div>
+                        <p class="testimonial-text">
+                            "REvalto made finding our dream home so effortless. The listings are detailed, 
+                            the reviews helped us make a confident decision. Highly recommend!"
+                        </p>
+                        <div class="testimonial-author">
+                            <div class="testimonial-avatar">R</div>
+                            <div>
+                                <div class="testimonial-name">Rajesh Kumar</div>
+                                <div class="testimonial-role">Home Buyer, Hyderabad</div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-md-4">
+                    <div class="testimonial-card">
+                        <div class="testimonial-stars">
+                            <i class="fas fa-star"></i>
+                            <i class="fas fa-star"></i>
+                            <i class="fas fa-star"></i>
+                            <i class="fas fa-star"></i>
+                            <i class="fas fa-star"></i>
+                        </div>
+                        <p class="testimonial-text">
+                            "Listed my property on REvalto and got genuine inquiries within days. 
+                            The platform is clean, simple, and trustworthy. Great experience overall."
+                        </p>
+                        <div class="testimonial-author">
+                            <div class="testimonial-avatar">P</div>
+                            <div>
+                                <div class="testimonial-name">Priya Sharma</div>
+                                <div class="testimonial-role">Property Seller, Mumbai</div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-md-4">
+                    <div class="testimonial-card">
+                        <div class="testimonial-stars">
+                            <i class="fas fa-star"></i>
+                            <i class="fas fa-star"></i>
+                            <i class="fas fa-star"></i>
+                            <i class="fas fa-star"></i>
+                            <i class="far fa-star"></i>
+                        </div>
+                        <p class="testimonial-text">
+                            "The review system on REvalto is fantastic. I could read real feedback 
+                            from other buyers before visiting the property. Saved so much time!"
+                        </p>
+                        <div class="testimonial-author">
+                            <div class="testimonial-avatar">A</div>
+                            <div>
+                                <div class="testimonial-name">Amit Patel</div>
+                                <div class="testimonial-role">Investor, Bangalore</div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- CTA Banner -->
+    <section class="cta-banner">
+        <div class="container">
+            <div class="cta-content">
+                <h2>Ready to Find Your Dream Property?</h2>
+                <p>Join thousands of happy buyers and sellers on REvalto. Start exploring properties today!</p>
+                <div class="d-flex gap-3 justify-content-center flex-wrap">
+                    <a href="/listings" class="btn-hero-primary">
+                        <i class="fas fa-arrow-right me-2"></i>Browse All Properties
+                    </a>
+                    <a href="/listings/new" class="btn-hero-outline">
+                        <i class="fas fa-plus me-2"></i>Add Your Property
+                    </a>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer class="landing-footer">
+        <div class="container">
+            <div class="row">
+                <div class="col-md-4 mb-4">
+                    <h5 class="footer-brand-title">
+                        <i class="fas fa-home me-2 navbar-brand-icon"></i>REvalto
+                    </h5>
+                    <p class="footer-brand-desc">
+                        India's trusted platform for buying and selling properties. 
+                        Transparent, verified, and community-driven.
+                    </p>
+                </div>
+                <div class="col-md-2 mb-4">
+                    <h6 class="footer-heading">Quick Links</h6>
+                    <ul class="list-unstyled footer-link-list">
+                        <li><a href="/listings"><i class="fas fa-chevron-right me-1 footer-chevron"></i> All Properties</a></li>
+                        <li><a href="/listings/new"><i class="fas fa-chevron-right me-1 footer-chevron"></i> Add Property</a></li>
+                        <li><a href="/listings/about"><i class="fas fa-chevron-right me-1 footer-chevron"></i> About Us</a></li>
+                    </ul>
+                </div>
+                <div class="col-md-3 mb-4">
+                    <h6 class="footer-heading">Contact</h6>
+                    <ul class="list-unstyled footer-link-list">
+                        <li><i class="fas fa-envelope me-2 footer-contact-icon"></i> support@revalto.com</li>
+                        <li><i class="fas fa-phone me-2 footer-contact-icon"></i> +91 98765 43210</li>
+                        <li><i class="fas fa-map-marker-alt me-2 footer-contact-icon"></i> Hyderabad, India</li>
+                    </ul>
+                </div>
+                <div class="col-md-3 mb-4">
+                    <h6 class="footer-heading">Follow Us</h6>
+                    <div class="d-flex gap-3">
+                        <a href="#" class="social-link-circle">
+                            <i class="fab fa-facebook-f"></i>
+                        </a>
+                        <a href="#" class="social-link-circle">
+                            <i class="fab fa-twitter"></i>
+                        </a>
+                        <a href="#" class="social-link-circle">
+                            <i class="fab fa-instagram"></i>
+                        </a>
+                        <a href="#" class="social-link-circle">
+                            <i class="fab fa-linkedin-in"></i>
+                        </a>
+                    </div>
+                </div>
+            </div>
+            <div class="footer-divider"></div>
+            <div class="text-center">
+                <p class="mb-0 footer-copyright">
+                    &copy; 2026 REvalto. All rights reserved. Made with 
+                    <i class="fas fa-heart footer-heart"></i> in India
+                </p>
+            </div>
+        </div>
+    </footer>
+
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+</body>
+</html>

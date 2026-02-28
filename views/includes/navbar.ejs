@@ -1,0 +1,43 @@
+<nav class="navbar navbar-expand-lg navbar-dark bg-dark sticky-top">
+    <div class="container">
+        <a class="navbar-brand fw-bold" href="/listings">
+            <i class="fas fa-home me-2"></i>REvalto
+        </a>
+        <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav">
+            <span class="navbar-toggler-icon"></span>
+        </button>
+        <div class="collapse navbar-collapse" id="navbarNav">
+            <ul class="navbar-nav me-auto mb-2 mb-lg-0">
+                <li class="nav-item">
+                    <a class="nav-link" href="/listings">Home</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="/listings">All Properties</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="/listings/new">Add Property</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="/listings/about">About Us</a>
+                </li>
+            </ul>
+            <form class="d-flex me-3" role="search">
+                <input class="form-control me-2" type="search" placeholder="Search properties..." aria-label="Search">
+                <button class="btn btn-outline-light" type="submit">Search</button>
+            </form>
+            <div class="navbar-nav">
+                <% if (currentUser) { %>
+                    <a class="nav-link" href="/users/<%= currentUser._id %>">
+                        <i class="fas fa-user me-1"></i><%= currentUser.username %>
+                    </a>
+                    <a class="nav-link" href="/users/logout">
+                        <i class="fas fa-sign-out-alt me-1"></i>Logout
+                    </a>
+                <% } else { %>
+                    <a class="btn btn-outline-light me-2" href="/users/signup">Sign Up</a>
+                    <a class="btn btn-light" href="/users/login">Log In</a>
+                <% } %>
+            </div>
+        </div>
+    </div>
+</nav>

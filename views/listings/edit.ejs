@@ -1,0 +1,53 @@
+<% layout('layouts/boilerplate') %>
+
+<h2 class="mb-4">Edit Property</h2>
+
+<div class="row">
+    <div class="col-md-8 offset-md-2">
+        <div class="card">
+            <div class="card-body">
+                <form method="post" action="/listings/<%= listing._id %>?_method=PUT" novalidate class="needs-validation" enctype="multipart/form-data">
+                    <div class="mb-3">
+                        <label for="title" class="form-label">Property Title</label>
+                        <input name="listing[title]" id="title" value="<%= listing.title %>" type="text" class="form-control" required>
+                        <div class="invalid-feedback">Please enter a property title.</div>
+                    </div>
+                    <div class="mb-3">
+                        <label for="description" class="form-label">Description</label>
+                        <textarea name="listing[description]" id="description" class="form-control" rows="4" required><%= listing.description %></textarea>
+                        <div class="invalid-feedback">Please enter a description.</div>
+                    </div>
+                    <div class="mb-3">
+                        <label for="price" class="form-label">Price (₹)</label>
+                        <input name="listing[price]" id="price" value="<%= listing.price %>" type="number" class="form-control" required min="1">
+                        <div class="invalid-feedback">Please enter a valid price.</div>
+                    </div>
+                    <div class="mb-3">
+                        <label for="image" class="form-label">Property Image</label>
+                        <% if (listing.image && listing.image.url) { %>
+                            <div class="mb-2">
+                                <img src="<%= listing.image.url %>" alt="Current image" style="max-height: 150px; border-radius: 8px;">
+                            </div>
+                        <% } %>
+                        <input name="image" id="image" type="file" accept="image/*" class="form-control">
+                        <small class="text-muted">Upload a new image to replace the current one (optional)</small>
+                    </div>
+                    <div class="mb-3">
+                        <label for="location" class="form-label">Location</label>
+                        <input name="listing[location]" id="location" value="<%= listing.location %>" type="text" class="form-control" required>
+                        <div class="invalid-feedback">Please enter a location.</div>
+                    </div>
+                    <div class="mb-3">
+                        <label for="country" class="form-label">Country</label>
+                        <input name="listing[country]" id="country" value="<%= listing.country %>" type="text" class="form-control" required>
+                        <div class="invalid-feedback">Please enter a country.</div>
+                    </div>
+                    <button type="submit" class="btn btn-primary">
+                        <i class="fas fa-save me-2"></i>Save Changes
+                    </button>
+                    <a href="/listings/<%= listing._id %>" class="btn btn-secondary ms-2">Cancel</a>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
