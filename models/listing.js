@@ -15,6 +15,17 @@ const listingSchema = new Schema({
     price: Number,
     location: String,
     country: String,
+    geometry: {
+        type: {
+            type: String,
+            enum: ["Point"],
+            default: "Point",
+        },
+        coordinates: {
+            type: [Number], // [longitude, latitude]
+            default: [0, 0],
+        },
+    },
     reviews: [
         {
             type: Schema.Types.ObjectId,
@@ -25,12 +36,30 @@ const listingSchema = new Schema({
         type: Schema.Types.ObjectId,
         ref: "User",
     },
+    documents: [
+        {
+            type: Schema.Types.ObjectId,
+            ref: "Document",
+        },
+    ],
+    status: {
+        type: String,
+        enum: ["available", "under-offer", "sold"],
+        default: "available",
+    },
 });
 
-// Middleware: when a listing is deleted, delete all its reviews
+const Document = require('./document.js');
+const Booking = require('./booking.js');
+const Purchase = require('./purchase.js');
+
+// Middleware: when a listing is deleted, delete all related data
 listingSchema.post("findOneAndDelete", async (listing) => {
     if (listing) {
         await Review.deleteMany({ _id: { $in: listing.reviews } });
+        await Document.deleteMany({ _id: { $in: listing.documents } });
+        await Booking.deleteMany({ listing: listing._id });
+        await Purchase.deleteMany({ listing: listing._id });
     }
 });
 

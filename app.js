@@ -20,6 +20,9 @@ const User=require("./models/user.js")
 const listingRoutes = require("./routes/listing.js");
 const reviewRoutes = require("./routes/review.js");
 const userRoutes = require("./routes/user.js");
+const bookingRoutes = require("./routes/booking.js");
+const documentRoutes = require("./routes/document.js");
+const purchaseRoutes = require("./routes/purchase.js");
 
 const mongo_url = "mongodb://127.0.0.1:27017/test";
 
@@ -76,7 +79,7 @@ app.use((req, res, next) => {
 
 // Root
 app.get("/", (req, res) => {
-    res.send("hi am the root ");
+    res.sendFile(path.join(__dirname, "public", "index.html"));
 });
 
 // Demo cookie routes
@@ -107,6 +110,9 @@ app.get("/clearcookie", (req, res) => {
 app.use("/users", userRoutes);
 app.use("/listings", listingRoutes);
 app.use("/listings/:id/reviews", reviewRoutes);
+app.use("/bookings", bookingRoutes);
+app.use("/listings/:id/documents", documentRoutes);
+app.use("/purchases", purchaseRoutes);
 
 // 404 - Page Not Found
 app.use((req, res, next) => {
@@ -123,3 +129,4 @@ app.use((err, req, res, next) => {
 app.listen(8088, () => {
     console.log("port was listening on the 8088 ");
 });
+

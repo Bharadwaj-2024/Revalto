@@ -24,7 +24,7 @@
                     </div>
                     <div class="mb-3">
                         <label for="location" class="form-label">Location</label>
-                        <input name="listing[location]" id="location" placeholder="Enter location" type="text" class="form-control" required>
+                        <input name="listing[location]" id="location" placeholder="Enter location (e.g., Banjara Hills, Hyderabad)" type="text" class="form-control" required>
                         <div class="invalid-feedback">Please enter a location.</div>
                     </div>
                     <div class="mb-3">
@@ -32,6 +32,14 @@
                         <input name="listing[country]" id="country" placeholder="Enter country" type="text" class="form-control" required>
                         <div class="invalid-feedback">Please enter a country.</div>
                     </div>
+
+                    <!-- Map Preview -->
+                    <div class="mb-3">
+                        <label class="form-label"><i class="fas fa-map-marked-alt me-1"></i> Location Preview</label>
+                        <div id="form-map" class="form-map"></div>
+                        <small class="text-muted">The map will update automatically based on the location and country you enter.</small>
+                    </div>
+
                     <div class="mb-3">
                         <label for="image" class="form-label">Property Image</label>
                         <input name="image" id="image" type="file" accept="image/*" class="form-control">
@@ -46,3 +54,46 @@
         </div>
     </div>
 </div>
+
+<script>
+document.addEventListener('DOMContentLoaded', function() {
+    const map = L.map('form-map').setView([20.5937, 78.9629], 5);
+    L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
+        maxZoom: 19,
+        attribution: '&copy; OpenStreetMap contributors'
+    }).addTo(map);
+
+    setTimeout(function() { map.invalidateSize(); }, 200);
+
+    let marker = null;
+    let debounceTimer = null;
+
+    function geocodeAndUpdate() {
+        const location = document.getElementById('location').value.trim();
+        const country = document.getElementById('country').value.trim();
+        if (!location && !country) return;
+
+        const query = encodeURIComponent((location ? location + ', ' : '') + country);
+        fetch('https://nominatim.openstreetmap.org/search?q=' + query + '&format=json&limit=1')
+            .then(res => res.json())
+            .then(data => {
+                if (data && data.length > 0) {
+                    const lat = parseFloat(data[0].lat);
+                    const lng = parseFloat(data[0].lon);
+                    if (marker) map.removeLayer(marker);
+                    marker = L.marker([lat, lng]).addTo(map);
+                    marker.bindPopup('<strong>' + (location || '') + '</strong><br>' + (country || '')).openPopup();
+                    map.setView([lat, lng], 14);
+                }
+            })
+            .catch(() => {});
+    }
+
+    ['location', 'country'].forEach(id => {
+        document.getElementById(id).addEventListener('input', function() {
+            clearTimeout(debounceTimer);
+            debounceTimer = setTimeout(geocodeAndUpdate, 800);
+        });
+    });
+});
+</script>

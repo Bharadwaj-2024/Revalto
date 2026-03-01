@@ -1569,3 +1569,202 @@ body {
     .hero-stats { flex-direction: column; gap: 16px; }
     .search-bar-card { padding: 20px; }
 }
+
+/* ==================== BOOKING & MEETING STYLES ==================== */
+.booking-section,
+.buy-section,
+.documents-section {
+    margin-bottom: 2rem;
+}
+
+.booking-card,
+.buy-card {
+    border-width: 2px;
+    border-radius: 12px;
+    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.08);
+    transition: box-shadow 0.3s ease;
+}
+
+.booking-card:hover,
+.buy-card:hover {
+    box-shadow: 0 6px 25px rgba(0, 0, 0, 0.12);
+}
+
+.booking-card .card-title {
+    font-weight: 700;
+}
+
+.buy-card .card-title {
+    font-weight: 700;
+}
+
+.section-heading {
+    font-weight: 700;
+    color: #333;
+    display: flex;
+    align-items: center;
+    margin-bottom: 1rem;
+}
+
+.section-heading .badge {
+    font-size: 0.75rem;
+    font-weight: 600;
+}
+
+/* Document Card */
+.document-card {
+    border-radius: 10px;
+    border: 1px solid #e9ecef;
+    transition: all 0.3s ease;
+}
+
+.document-card:hover {
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+    border-color: #667eea;
+}
+
+.doc-icon {
+    width: 50px;
+    height: 50px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background: #f0f4ff;
+    border-radius: 10px;
+}
+
+.upload-doc-card {
+    border: 2px dashed #667eea;
+    border-radius: 12px;
+    background: #f8f9ff;
+}
+
+.upload-doc-card:hover {
+    background: #f0f4ff;
+}
+
+/* Empty State Card */
+.empty-state-card {
+    text-align: center;
+    padding: 2.5rem;
+    background: #f8f9fa;
+    border-radius: 12px;
+    border: 2px dashed #dee2e6;
+}
+
+/* Booking Table */
+.booking-table {
+    border-radius: 10px;
+    overflow: hidden;
+}
+
+.booking-table thead {
+    background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+    color: white;
+}
+
+.booking-table thead th {
+    font-weight: 600;
+    border: none;
+    padding: 12px 16px;
+}
+
+.booking-table tbody td {
+    vertical-align: middle;
+    padding: 12px 16px;
+}
+
+/* Offer Card */
+.offer-card {
+    border-radius: 12px;
+    border: 1px solid #e9ecef;
+    transition: all 0.3s ease;
+    height: 100%;
+}
+
+.offer-card:hover {
+    box-shadow: 0 6px 20px rgba(0, 0, 0, 0.1);
+    transform: translateY(-2px);
+}
+
+.offer-card .card-title {
+    font-size: 1.1rem;
+}
+
+/* Status Badge Styling */
+.property-badge.sold {
+    background: #dc3545 !important;
+}
+
+.property-badge.under-offer {
+    background: #ffc107 !important;
+    color: #333 !important;
+}
+
+/* Responsive adjustments */
+@media (max-width: 768px) {
+    .booking-table {
+        font-size: 0.85rem;
+    }
+    
+    .booking-table thead th,
+    .booking-table tbody td {
+        padding: 8px 10px;
+    }
+}
+
+/* ==================== MAP STYLES ==================== */
+.map-section {
+    margin-bottom: 2rem;
+}
+
+.listing-map {
+    width: 100%;
+    height: 400px;
+    border-radius: 12px;
+    border: 2px solid #e9ecef;
+    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.08);
+    z-index: 1;
+}
+
+.index-map {
+    width: 100%;
+    height: 500px;
+    border-radius: 12px;
+    border: 2px solid #e9ecef;
+    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
+    z-index: 1;
+}
+
+.form-map {
+    width: 100%;
+    height: 300px;
+    border-radius: 10px;
+    border: 2px solid #dee2e6;
+    z-index: 1;
+}
+
+.leaflet-popup-content-wrapper {
+    border-radius: 10px !important;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15) !important;
+}
+
+.leaflet-popup-content {
+    margin: 12px 16px !important;
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif !important;
+    line-height: 1.6 !important;
+}
+
+@media (max-width: 768px) {
+    .listing-map {
+        height: 300px;
+    }
+
+    .index-map {
+        height: 350px;
+    }
+
+    .form-map {
+        height: 250px;
+    }
+}

@@ -1,0 +1,162 @@
+<% layout('layouts/boilerplate') %>
+
+<div class="row">
+    <div class="col-md-10 offset-md-1">
+        <h2 class="mb-4"><i class="fas fa-shopping-cart me-2"></i>My Purchase Offers</h2>
+
+        <!-- Offers I Made (as Buyer) -->
+        <div class="mb-5">
+            <h4 class="section-heading">
+                <i class="fas fa-arrow-right me-2"></i>Offers I Made
+                <span class="badge bg-primary ms-2"><%= buyerOffers.length %></span>
+            </h4>
+
+            <% if (buyerOffers.length === 0) { %>
+                <div class="empty-state-card">
+                    <i class="fas fa-hand-holding-usd fa-3x mb-3 text-muted"></i>
+                    <p class="text-muted">You haven't made any purchase offers yet.</p>
+                    <a href="/listings" class="btn btn-primary btn-sm">Browse Properties</a>
+                </div>
+            <% } else { %>
+                <div class="row">
+                    <% for (let offer of buyerOffers) { %>
+                    <div class="col-md-6 mb-4">
+                        <div class="card offer-card">
+                            <div class="card-body">
+                                <div class="d-flex justify-content-between align-items-start mb-2">
+                                    <h5 class="card-title mb-0">
+                                        <% if (offer.listing) { %>
+                                            <a href="/listings/<%= offer.listing._id %>" class="text-decoration-none">
+                                                <%= offer.listing.title %>
+                                            </a>
+                                        <% } else { %>
+                                            <span class="text-muted">[Deleted Property]</span>
+                                        <% } %>
+                                    </h5>
+                                    <% if (offer.status === 'pending') { %>
+                                        <span class="badge bg-warning text-dark">Pending</span>
+                                    <% } else if (offer.status === 'accepted') { %>
+                                        <span class="badge bg-success">Accepted</span>
+                                    <% } else if (offer.status === 'rejected') { %>
+                                        <span class="badge bg-danger">Rejected</span>
+                                    <% } else if (offer.status === 'completed') { %>
+                                        <span class="badge bg-primary">Completed</span>
+                                    <% } else { %>
+                                        <span class="badge bg-secondary">Cancelled</span>
+                                    <% } %>
+                                </div>
+                                <p class="mb-1"><strong>Your Offer:</strong> ₹<%= offer.offerPrice.toLocaleString('en-IN') %></p>
+                                <% if (offer.listing) { %>
+                                    <p class="mb-1 text-muted"><strong>Asking Price:</strong> ₹<%= offer.listing.price.toLocaleString('en-IN') %></p>
+                                <% } %>
+                                <p class="mb-1"><strong>Owner:</strong> <%= offer.owner ? offer.owner.username : 'N/A' %></p>
+                                <% if (offer.message) { %>
+                                    <p class="mb-1"><small class="text-muted"><%= offer.message %></small></p>
+                                <% } %>
+                                <p class="mb-2"><small class="text-muted">
+                                    <i class="far fa-clock me-1"></i>
+                                    <%= new Date(offer.createdAt).toLocaleDateString('en-IN', { year: 'numeric', month: 'short', day: 'numeric' }) %>
+                                </small></p>
+                                <% if (offer.status === 'pending') { %>
+                                    <form action="/purchases/<%= offer._id %>/cancel" method="POST" class="d-inline">
+                                        <button type="submit" class="btn btn-sm btn-outline-danger" onclick="return confirm('Cancel this offer?')">
+                                            <i class="fas fa-times me-1"></i>Cancel Offer
+                                        </button>
+                                    </form>
+                                <% } %>
+                            </div>
+                        </div>
+                    </div>
+                    <% } %>
+                </div>
+            <% } %>
+        </div>
+
+        <hr>
+
+        <!-- Offers I Received (as Owner) -->
+        <div class="mb-5">
+            <h4 class="section-heading">
+                <i class="fas fa-arrow-left me-2"></i>Offers Received
+                <span class="badge bg-success ms-2"><%= ownerOffers.length %></span>
+            </h4>
+
+            <% if (ownerOffers.length === 0) { %>
+                <div class="empty-state-card">
+                    <i class="fas fa-inbox fa-3x mb-3 text-muted"></i>
+                    <p class="text-muted">No purchase offers received yet.</p>
+                </div>
+            <% } else { %>
+                <div class="row">
+                    <% for (let offer of ownerOffers) { %>
+                    <div class="col-md-6 mb-4">
+                        <div class="card offer-card">
+                            <div class="card-body">
+                                <div class="d-flex justify-content-between align-items-start mb-2">
+                                    <h5 class="card-title mb-0">
+                                        <% if (offer.listing) { %>
+                                            <a href="/listings/<%= offer.listing._id %>" class="text-decoration-none">
+                                                <%= offer.listing.title %>
+                                            </a>
+                                        <% } else { %>
+                                            <span class="text-muted">[Deleted Property]</span>
+                                        <% } %>
+                                    </h5>
+                                    <% if (offer.status === 'pending') { %>
+                                        <span class="badge bg-warning text-dark">Pending</span>
+                                    <% } else if (offer.status === 'accepted') { %>
+                                        <span class="badge bg-success">Accepted</span>
+                                    <% } else if (offer.status === 'rejected') { %>
+                                        <span class="badge bg-danger">Rejected</span>
+                                    <% } else if (offer.status === 'completed') { %>
+                                        <span class="badge bg-primary">Deal Completed</span>
+                                    <% } else { %>
+                                        <span class="badge bg-secondary">Cancelled</span>
+                                    <% } %>
+                                </div>
+                                <p class="mb-1"><strong>Offer Amount:</strong> ₹<%= offer.offerPrice.toLocaleString('en-IN') %></p>
+                                <% if (offer.listing) { %>
+                                    <p class="mb-1 text-muted"><strong>Your Asking Price:</strong> ₹<%= offer.listing.price.toLocaleString('en-IN') %></p>
+                                <% } %>
+                                <p class="mb-1"><strong>Buyer:</strong> <%= offer.buyer ? offer.buyer.username : 'N/A' %></p>
+                                <p class="mb-1"><strong>Phone:</strong> <%= offer.phone %></p>
+                                <% if (offer.message) { %>
+                                    <p class="mb-1"><small class="text-muted"><%= offer.message %></small></p>
+                                <% } %>
+                                <p class="mb-2"><small class="text-muted">
+                                    <i class="far fa-clock me-1"></i>
+                                    <%= new Date(offer.createdAt).toLocaleDateString('en-IN', { year: 'numeric', month: 'short', day: 'numeric' }) %>
+                                </small></p>
+
+                                <% if (offer.status === 'pending') { %>
+                                    <div class="d-flex gap-2">
+                                        <form action="/purchases/<%= offer._id %>/status" method="POST" class="d-inline">
+                                            <input type="hidden" name="status" value="accepted">
+                                            <button type="submit" class="btn btn-sm btn-success">
+                                                <i class="fas fa-check me-1"></i>Accept
+                                            </button>
+                                        </form>
+                                        <form action="/purchases/<%= offer._id %>/status" method="POST" class="d-inline">
+                                            <input type="hidden" name="status" value="rejected">
+                                            <button type="submit" class="btn btn-sm btn-danger">
+                                                <i class="fas fa-times me-1"></i>Reject
+                                            </button>
+                                        </form>
+                                    </div>
+                                <% } else if (offer.status === 'accepted') { %>
+                                    <form action="/purchases/<%= offer._id %>/status" method="POST" class="d-inline">
+                                        <input type="hidden" name="status" value="completed">
+                                        <button type="submit" class="btn btn-sm btn-primary" onclick="return confirm('Mark this deal as completed? The property will be marked as sold.')">
+                                            <i class="fas fa-check-double me-1"></i>Complete Deal
+                                        </button>
+                                    </form>
+                                <% } %>
+                            </div>
+                        </div>
+                    </div>
+                    <% } %>
+                </div>
+            <% } %>
+        </div>
+    </div>
+</div>

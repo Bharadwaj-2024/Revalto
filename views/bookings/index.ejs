@@ -1,0 +1,198 @@
+<% layout('layouts/boilerplate') %>
+
+<div class="row">
+    <div class="col-md-10 offset-md-1">
+        <h2 class="mb-4"><i class="fas fa-calendar-alt me-2"></i>My Meetings</h2>
+
+        <!-- Meetings I Requested (as Buyer) -->
+        <div class="mb-5">
+            <h4 class="section-heading">
+                <i class="fas fa-arrow-right me-2"></i>Meetings I Requested
+                <span class="badge bg-primary ms-2"><%= buyerBookings.length %></span>
+            </h4>
+
+            <% if (buyerBookings.length === 0) { %>
+                <div class="empty-state-card">
+                    <i class="far fa-calendar-times fa-3x mb-3 text-muted"></i>
+                    <p class="text-muted">You haven't requested any meetings yet.</p>
+                    <a href="/listings" class="btn btn-primary btn-sm">Browse Properties</a>
+                </div>
+            <% } else { %>
+                <div class="table-responsive">
+                    <table class="table table-hover booking-table">
+                        <thead>
+                            <tr>
+                                <th>Property</th>
+                                <th>Owner</th>
+                                <th>Date & Time</th>
+                                <th>Type</th>
+                                <th>Status</th>
+                                <th>Action</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <% for (let booking of buyerBookings) { %>
+                            <tr>
+                                <td>
+                                    <% if (booking.listing) { %>
+                                        <a href="/listings/<%= booking.listing._id %>" class="fw-semibold text-decoration-none">
+                                            <%= booking.listing.title %>
+                                        </a>
+                                    <% } else { %>
+                                        <span class="text-muted">[Deleted Property]</span>
+                                    <% } %>
+                                </td>
+                                <td><%= booking.owner ? booking.owner.username : 'N/A' %></td>
+                                <td>
+                                    <%= new Date(booking.meetingDate).toLocaleDateString('en-IN', { year: 'numeric', month: 'short', day: 'numeric' }) %>
+                                    <br><small class="text-muted"><%= booking.meetingTime %></small>
+                                </td>
+                                <td>
+                                    <% if (booking.meetingType === 'in-person') { %>
+                                        <span class="badge bg-info"><i class="fas fa-handshake me-1"></i>In Person</span>
+                                    <% } else if (booking.meetingType === 'video-call') { %>
+                                        <span class="badge bg-success"><i class="fas fa-video me-1"></i>Video Call</span>
+                                    <% } else { %>
+                                        <span class="badge bg-warning text-dark"><i class="fas fa-phone me-1"></i>Phone Call</span>
+                                    <% } %>
+                                </td>
+                                <td>
+                                    <% if (booking.status === 'pending') { %>
+                                        <span class="badge bg-warning text-dark">Pending</span>
+                                    <% } else if (booking.status === 'confirmed') { %>
+                                        <span class="badge bg-success">Confirmed</span>
+                                    <% } else if (booking.status === 'cancelled') { %>
+                                        <span class="badge bg-danger">Cancelled</span>
+                                    <% } else { %>
+                                        <span class="badge bg-secondary">Completed</span>
+                                    <% } %>
+                                </td>
+                                <td>
+                                    <% if (booking.status === 'pending') { %>
+                                        <form action="/bookings/<%= booking._id %>/cancel" method="POST" class="d-inline">
+                                            <button type="submit" class="btn btn-sm btn-outline-danger" onclick="return confirm('Cancel this meeting request?')">
+                                                Cancel
+                                            </button>
+                                        </form>
+                                    <% } else if (booking.status === 'confirmed' || booking.status === 'completed') { %>
+                                        <% if (booking.listing) { %>
+                                            <a href="/listings/<%= booking.listing._id %>" class="btn btn-sm btn-success" title="View property and make a purchase offer">
+                                                <i class="fas fa-shopping-cart me-1"></i>Buy Property
+                                            </a>
+                                        <% } %>
+                                    <% } %>
+                                </td>
+                            </tr>
+                            <% } %>
+                        </tbody>
+                    </table>
+                </div>
+            <% } %>
+        </div>
+
+        <hr>
+
+        <!-- Meeting Requests I Received (as Owner) -->
+        <div class="mb-5">
+            <h4 class="section-heading">
+                <i class="fas fa-arrow-left me-2"></i>Meeting Requests Received
+                <span class="badge bg-success ms-2"><%= ownerBookings.length %></span>
+            </h4>
+
+            <% if (ownerBookings.length === 0) { %>
+                <div class="empty-state-card">
+                    <i class="far fa-calendar-check fa-3x mb-3 text-muted"></i>
+                    <p class="text-muted">No meeting requests received yet.</p>
+                </div>
+            <% } else { %>
+                <div class="table-responsive">
+                    <table class="table table-hover booking-table">
+                        <thead>
+                            <tr>
+                                <th>Property</th>
+                                <th>Buyer</th>
+                                <th>Phone</th>
+                                <th>Date & Time</th>
+                                <th>Type</th>
+                                <th>Message</th>
+                                <th>Status</th>
+                                <th>Actions</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <% for (let booking of ownerBookings) { %>
+                            <tr>
+                                <td>
+                                    <% if (booking.listing) { %>
+                                        <a href="/listings/<%= booking.listing._id %>" class="fw-semibold text-decoration-none">
+                                            <%= booking.listing.title %>
+                                        </a>
+                                    <% } else { %>
+                                        <span class="text-muted">[Deleted Property]</span>
+                                    <% } %>
+                                </td>
+                                <td><%= booking.buyer ? booking.buyer.username : 'N/A' %></td>
+                                <td><%= booking.phone %></td>
+                                <td>
+                                    <%= new Date(booking.meetingDate).toLocaleDateString('en-IN', { year: 'numeric', month: 'short', day: 'numeric' }) %>
+                                    <br><small class="text-muted"><%= booking.meetingTime %></small>
+                                </td>
+                                <td>
+                                    <% if (booking.meetingType === 'in-person') { %>
+                                        <span class="badge bg-info"><i class="fas fa-handshake me-1"></i>In Person</span>
+                                    <% } else if (booking.meetingType === 'video-call') { %>
+                                        <span class="badge bg-success"><i class="fas fa-video me-1"></i>Video Call</span>
+                                    <% } else { %>
+                                        <span class="badge bg-warning text-dark"><i class="fas fa-phone me-1"></i>Phone Call</span>
+                                    <% } %>
+                                </td>
+                                <td><%= booking.message || '-' %></td>
+                                <td>
+                                    <% if (booking.status === 'pending') { %>
+                                        <span class="badge bg-warning text-dark">Pending</span>
+                                    <% } else if (booking.status === 'confirmed') { %>
+                                        <span class="badge bg-success">Confirmed</span>
+                                    <% } else if (booking.status === 'cancelled') { %>
+                                        <span class="badge bg-danger">Cancelled</span>
+                                    <% } else { %>
+                                        <span class="badge bg-secondary">Completed</span>
+                                    <% } %>
+                                </td>
+                                <td>
+                                    <% if (booking.status === 'pending') { %>
+                                        <div class="d-flex gap-1">
+                                            <form action="/bookings/<%= booking._id %>/status" method="POST" class="d-inline">
+                                                <input type="hidden" name="status" value="confirmed">
+                                                <button type="submit" class="btn btn-sm btn-success" title="Confirm">
+                                                    <i class="fas fa-check"></i>
+                                                </button>
+                                            </form>
+                                            <form action="/bookings/<%= booking._id %>/status" method="POST" class="d-inline">
+                                                <input type="hidden" name="status" value="cancelled">
+                                                <button type="submit" class="btn btn-sm btn-danger" title="Decline">
+                                                    <i class="fas fa-times"></i>
+                                                </button>
+                                            </form>
+                                        </div>
+                                    <% } else if (booking.status === 'confirmed') { %>
+                                        <form action="/bookings/<%= booking._id %>/status" method="POST" class="d-inline">
+                                            <input type="hidden" name="status" value="completed">
+                                            <button type="submit" class="btn btn-sm btn-outline-success" title="Mark Completed">
+                                                <i class="fas fa-check-double me-1"></i>Done
+                                            </button>
+                                        </form>
+                                    <% } else if (booking.status === 'completed') { %>
+                                        <a href="/purchases" class="btn btn-sm btn-outline-primary" title="View purchase offers">
+                                            <i class="fas fa-file-invoice-dollar me-1"></i>View Offers
+                                        </a>
+                                    <% } %>
+                                </td>
+                            </tr>
+                            <% } %>
+                        </tbody>
+                    </table>
+                </div>
+            <% } %>
+        </div>
+    </div>
+</div>

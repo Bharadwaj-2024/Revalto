@@ -19,7 +19,15 @@
                             <i class="fas fa-home"></i>
                         </div>
                     <% } %>
-                    <div class="property-badge">For Sale</div>
+                    <div class="property-badge">
+                        <% if (listing.status === 'sold') { %>
+                            Sold
+                        <% } else if (listing.status === 'under-offer') { %>
+                            Under Offer
+                        <% } else { %>
+                            For Sale
+                        <% } %>
+                    </div>
                 </div>
                 <!-- Card Body -->
                 <div class="property-card-body">

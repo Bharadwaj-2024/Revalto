@@ -8,7 +8,8 @@ cloudinary.config({
     api_secret: process.env.CLOUD_API_SECRET,
 });
 
-const storage = new CloudinaryStorage({
+// Storage for images (listings)
+const imageStorage = new CloudinaryStorage({
     cloudinary,
     params: {
         folder: "revalto",
@@ -16,6 +17,16 @@ const storage = new CloudinaryStorage({
     },
 });
 
-const upload = multer({ storage });
+// Storage for documents (PDFs, images)
+const docStorage = new CloudinaryStorage({
+    cloudinary,
+    params: {
+        folder: "revalto_docs",
+        resource_type: "auto",
+    },
+});
 
-module.exports = { cloudinary, upload };
+const upload = multer({ storage: imageStorage });
+const docUpload = multer({ storage: docStorage });
+
+module.exports = { cloudinary, upload, docUpload };
