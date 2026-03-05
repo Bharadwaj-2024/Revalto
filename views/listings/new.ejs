@@ -33,6 +33,22 @@
                         <div class="invalid-feedback">Please enter a country.</div>
                     </div>
 
+                    <div class="mb-3">
+                        <label for="category" class="form-label">Property Type</label>
+                        <select name="listing[category]" id="category" class="form-select" required>
+                            <option value="" disabled selected>Select property type</option>
+                            <option value="apartment">Apartment</option>
+                            <option value="villa">Villa</option>
+                            <option value="house">House</option>
+                            <option value="office">Office / Commercial</option>
+                            <option value="land">Land / Plot</option>
+                            <option value="farmhouse">Farmhouse</option>
+                            <option value="pg-hostel">PG / Hostel</option>
+                            <option value="penthouse">Penthouse</option>
+                        </select>
+                        <div class="invalid-feedback">Please select a property type.</div>
+                    </div>
+
                     <!-- Map Preview -->
                     <div class="mb-3">
                         <label class="form-label"><i class="fas fa-map-marked-alt me-1"></i> Location Preview</label>

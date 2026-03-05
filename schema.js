@@ -8,6 +8,7 @@ const listingSchema = Joi.object({
         country: Joi.string().required(),
         price: Joi.number().required().min(0),
         image: Joi.any(),
+        category: Joi.string().valid("apartment", "villa", "house", "office", "land", "farmhouse", "pg-hostel", "penthouse"),
     }).required()
 }).options({ allowUnknown: true });
 

@@ -24,7 +24,13 @@ async function geocodeLocation(location, country) {
 }
 
 module.exports.index = async (req, res) => {
+    const { category } = req.query;
+    const matchStage = {};
+    if (category && category !== "all") {
+        matchStage.category = category;
+    }
     const allListings = await Listing.aggregate([
+        { $match: matchStage },
         {
             $addFields: {
                 reviewCount: { $size: { $ifNull: ["$reviews", []] } },
@@ -32,7 +38,7 @@ module.exports.index = async (req, res) => {
         },
         { $sort: { reviewCount: -1 } },
     ]);
-    res.render("listings/index.ejs", { all_listing: allListings });
+    res.render("listings/index.ejs", { all_listing: allListings, activeCategory: category || "all" });
 };
 
 module.exports.renderNewForm = (req, res) => {

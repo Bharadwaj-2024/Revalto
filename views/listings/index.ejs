@@ -1,10 +1,126 @@
 <% layout('layouts/boilerplate') %>
 
-<h2 class="mb-4">All Properties</h2>
+<!-- Hero Section -->
+<div class="hero-section">
+    <div class="hero-content">
+        <h1 class="hero-title">Find Your <span class="text-gradient">Dream Property</span></h1>
+        <p class="hero-subtitle">Discover premium properties across the globe. Buy, sell, and connect with property owners seamlessly.</p>
+        <div class="hero-stats">
+            <div class="stat-item">
+                <span class="stat-number"><%= all_listing.length %>+</span>
+                <span class="stat-label">Properties</span>
+            </div>
+            <div class="stat-item">
+                <span class="stat-number"><%= [...new Set(all_listing.map(l => l.country))].length %>+</span>
+                <span class="stat-label">Countries</span>
+            </div>
+            <div class="stat-item">
+                <span class="stat-number">24/7</span>
+                <span class="stat-label">Support</span>
+            </div>
+        </div>
+        <div class="hero-actions">
+            <a href="/listings/new" class="btn btn-hero-primary">
+                <i class="fas fa-plus me-2"></i>List Property
+            </a>
+            <a href="#properties" class="btn btn-hero-outline">
+                <i class="fas fa-search me-2"></i>Browse All
+            </a>
+        </div>
+    </div>
+</div>
 
-<a href="/listings/new" class="btn btn-primary mb-4">
-    <i class="fas fa-plus me-2"></i>Add New Property
-</a>
+<!-- Property Types Section -->
+<div class="property-types-section">
+    <div class="section-header">
+        <h2 class="section-title">Browse by Property Type</h2>
+        <p class="section-subtitle">Explore different categories of real estate</p>
+    </div>
+    <div class="property-types-grid">
+        <a href="/listings?category=all" class="property-type-card <%= activeCategory === 'all' ? 'active' : '' %>">
+            <div class="property-type-icon">
+                <i class="fas fa-th-large"></i>
+            </div>
+            <h4 class="property-type-name">All</h4>
+            <p class="property-type-desc">Browse everything</p>
+        </a>
+        <a href="/listings?category=apartment" class="property-type-card <%= activeCategory === 'apartment' ? 'active' : '' %>">
+            <div class="property-type-icon">
+                <i class="fas fa-building"></i>
+            </div>
+            <h4 class="property-type-name">Apartment</h4>
+            <p class="property-type-desc">Flats & apartments</p>
+        </a>
+        <a href="/listings?category=villa" class="property-type-card <%= activeCategory === 'villa' ? 'active' : '' %>">
+            <div class="property-type-icon">
+                <i class="fas fa-home"></i>
+            </div>
+            <h4 class="property-type-name">Villa</h4>
+            <p class="property-type-desc">Luxury villas</p>
+        </a>
+        <a href="/listings?category=house" class="property-type-card <%= activeCategory === 'house' ? 'active' : '' %>">
+            <div class="property-type-icon">
+                <i class="fas fa-house-user"></i>
+            </div>
+            <h4 class="property-type-name">House</h4>
+            <p class="property-type-desc">Independent houses</p>
+        </a>
+        <a href="/listings?category=office" class="property-type-card <%= activeCategory === 'office' ? 'active' : '' %>">
+            <div class="property-type-icon">
+                <i class="fas fa-briefcase"></i>
+            </div>
+            <h4 class="property-type-name">Office</h4>
+            <p class="property-type-desc">Commercial spaces</p>
+        </a>
+        <a href="/listings?category=land" class="property-type-card <%= activeCategory === 'land' ? 'active' : '' %>">
+            <div class="property-type-icon">
+                <i class="fas fa-mountain"></i>
+            </div>
+            <h4 class="property-type-name">Land</h4>
+            <p class="property-type-desc">Plots & land</p>
+        </a>
+        <a href="/listings?category=farmhouse" class="property-type-card <%= activeCategory === 'farmhouse' ? 'active' : '' %>">
+            <div class="property-type-icon">
+                <i class="fas fa-tractor"></i>
+            </div>
+            <h4 class="property-type-name">Farmhouse</h4>
+            <p class="property-type-desc">Rural retreats</p>
+        </a>
+        <a href="/listings?category=penthouse" class="property-type-card <%= activeCategory === 'penthouse' ? 'active' : '' %>">
+            <div class="property-type-icon">
+                <i class="fas fa-city"></i>
+            </div>
+            <h4 class="property-type-name">Penthouse</h4>
+            <p class="property-type-desc">Top-floor luxury</p>
+        </a>
+    </div>
+</div>
+
+<div id="properties" class="section-header">
+    <h2 class="section-title">
+        <% if (activeCategory && activeCategory !== 'all') { %>
+            <%= activeCategory.charAt(0).toUpperCase() + activeCategory.slice(1).replace('-', '/') %> Properties
+        <% } else { %>
+            Featured Properties
+        <% } %>
+    </h2>
+    <p class="section-subtitle">
+        <% if (activeCategory && activeCategory !== 'all') { %>
+            Showing <%= all_listing.length %> result<%= all_listing.length !== 1 ? 's' : '' %>
+        <% } else { %>
+            Handpicked properties for you
+        <% } %>
+    </p>
+</div>
+
+<% if (all_listing.length === 0) { %>
+    <div class="no-results-box">
+        <i class="fas fa-search fa-3x mb-3"></i>
+        <h4>No properties found</h4>
+        <p>There are no properties in this category yet. Try browsing all properties or list your own!</p>
+        <a href="/listings" class="btn btn-hero-primary mt-2">Browse All Properties</a>
+    </div>
+<% } %>
 
 <div class="row">
     <% for(let listing of all_listing) { %>
@@ -28,6 +144,13 @@
                             For Sale
                         <% } %>
                     </div>
+                    <% if (listing.category) { %>
+                        <div class="property-category-badge">
+                            <% const catIcons = { apartment: 'fa-building', villa: 'fa-home', house: 'fa-house-user', office: 'fa-briefcase', land: 'fa-mountain', farmhouse: 'fa-tractor', 'pg-hostel': 'fa-bed', penthouse: 'fa-city' }; %>
+                            <i class="fas <%= catIcons[listing.category] || 'fa-home' %> me-1"></i>
+                            <%= listing.category.charAt(0).toUpperCase() + listing.category.slice(1).replace('-', '/') %>
+                        </div>
+                    <% } %>
                 </div>
                 <!-- Card Body -->
                 <div class="property-card-body">

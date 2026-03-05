@@ -42,6 +42,11 @@ const listingSchema = new Schema({
             ref: "Document",
         },
     ],
+    category: {
+        type: String,
+        enum: ["apartment", "villa", "house", "office", "land", "farmhouse", "pg-hostel", "penthouse"],
+        default: "house",
+    },
     status: {
         type: String,
         enum: ["available", "under-offer", "sold"],
