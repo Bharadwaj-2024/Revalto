@@ -7,6 +7,12 @@ const userSchema = new Schema({
         type: String,
         required: true,
     },
+    phone: {
+        type: String,
+        required: true,
+        trim: true,
+        match: [/^\+?[0-9]{10,15}$/, "Please enter a valid mobile number"],
+    },
 });
 
 // passport-local-mongoose adds username, hash, salt fields automatically

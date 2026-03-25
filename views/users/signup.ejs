@@ -15,6 +15,19 @@
                 <div class="invalid-feedback">Please enter a valid email.</div>
             </div>
             <div class="mb-3">
+                <label for="phone" class="form-label">Mobile Number</label>
+                <input
+                    type="tel"
+                    class="form-control"
+                    id="phone"
+                    name="phone"
+                    placeholder="e.g., +91 9876543210"
+                    pattern="^\+?[0-9\s-]{10,18}$"
+                    required
+                >
+                <div class="invalid-feedback">Please enter a valid mobile number.</div>
+            </div>
+            <div class="mb-3">
                 <label for="password" class="form-label">Password</label>
                 <input type="password" class="form-control" id="password" name="password" required>
                 <div class="invalid-feedback">Please enter a password.</div>

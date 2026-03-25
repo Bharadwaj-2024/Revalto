@@ -132,7 +132,20 @@
                                     <% } %>
                                 </td>
                                 <td><%= booking.buyer ? booking.buyer.username : 'N/A' %></td>
-                                <td><%= booking.phone %></td>
+                                <td>
+                                    <div><%= booking.phone %></div>
+                                    <% const bookingPhoneDigits = (booking.phone || '').replace(/\D/g, ''); %>
+                                    <% if (bookingPhoneDigits) { %>
+                                        <div class="mt-1 d-flex gap-1 flex-wrap">
+                                            <a href="tel:<%= booking.phone %>" class="btn btn-sm btn-outline-success" title="Call buyer">
+                                                <i class="fas fa-phone"></i>
+                                            </a>
+                                            <a href="https://wa.me/<%= bookingPhoneDigits %>" target="_blank" rel="noopener" class="btn btn-sm btn-outline-primary" title="WhatsApp buyer">
+                                                <i class="fab fa-whatsapp"></i>
+                                            </a>
+                                        </div>
+                                    <% } %>
+                                </td>
                                 <td>
                                     <%= new Date(booking.meetingDate).toLocaleDateString('en-IN', { year: 'numeric', month: 'short', day: 'numeric' }) %>
                                     <br><small class="text-muted"><%= booking.meetingTime %></small>

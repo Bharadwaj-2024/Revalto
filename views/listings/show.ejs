@@ -254,7 +254,9 @@
                                 <div class="col-md-6">
                                     <label for="buyerPhone" class="form-label fw-semibold">Your Phone Number</label>
                                     <input type="tel" class="form-control" id="buyerPhone" name="phone" 
-                                        placeholder="e.g., +91 98765 43210" required>
+                                        value="<%= userPhone %>" placeholder="e.g., +91 9876543210"
+                                        pattern="^\+?[0-9\s-]{10,18}$" required>
+                                    <small class="text-muted">This will be shared with the owner and saved for future offers.</small>
                                 </div>
                                 <div class="col-12">
                                     <label for="buyerMessage" class="form-label fw-semibold">Message to Owner (Optional)</label>
@@ -326,7 +328,8 @@
                                 <div class="col-md-6">
                                     <label for="meetingPhone" class="form-label fw-semibold">Your Phone Number</label>
                                     <input type="tel" class="form-control" id="meetingPhone" name="phone" 
-                                        placeholder="e.g., +91 98765 43210" required>
+                                        value="<%= userPhone %>" placeholder="e.g., +91 9876543210"
+                                        pattern="^\+?[0-9\s-]{10,18}$" required>
                                 </div>
                                 <div class="col-md-6">
                                     <label for="meetingMessage" class="form-label fw-semibold">Message (Optional)</label>

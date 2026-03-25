@@ -72,7 +72,8 @@ module.exports.showListing = async (req, res) => {
         });
     }
 
-    res.render("listings/show.ejs", { listing, existingBooking, existingOffer });
+    const userPhone = req.user && req.user.phone ? req.user.phone : "";
+    res.render("listings/show.ejs", { listing, existingBooking, existingOffer, userPhone });
 };
 
 module.exports.createListing = async (req, res) => {

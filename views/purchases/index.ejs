@@ -120,6 +120,17 @@
                                 <% } %>
                                 <p class="mb-1"><strong>Buyer:</strong> <%= offer.buyer ? offer.buyer.username : 'N/A' %></p>
                                 <p class="mb-1"><strong>Phone:</strong> <%= offer.phone %></p>
+                                <% const purchasePhoneDigits = (offer.phone || '').replace(/\D/g, ''); %>
+                                <% if (purchasePhoneDigits) { %>
+                                    <div class="mb-2 d-flex gap-2 flex-wrap">
+                                        <a href="tel:<%= offer.phone %>" class="btn btn-sm btn-outline-success">
+                                            <i class="fas fa-phone me-1"></i>Call
+                                        </a>
+                                        <a href="https://wa.me/<%= purchasePhoneDigits %>" target="_blank" rel="noopener" class="btn btn-sm btn-outline-primary">
+                                            <i class="fab fa-whatsapp me-1"></i>WhatsApp
+                                        </a>
+                                    </div>
+                                <% } %>
                                 <% if (offer.message) { %>
                                     <p class="mb-1"><small class="text-muted"><%= offer.message %></small></p>
                                 <% } %>

@@ -1,6 +1,14 @@
 const Purchase = require("../models/purchase.js");
 const Listing = require("../models/listing.js");
+const User = require("../models/user.js");
 const ExpressError = require("../utils/express_error.js");
+
+const PHONE_REGEX = /^\+?[0-9]{10,15}$/;
+
+const normalizePhone = (phone) => {
+    if (!phone || typeof phone !== "string") return "";
+    return phone.trim().replace(/[\s-]+/g, "");
+};
 
 // Create a purchase offer
 module.exports.createOffer = async (req, res) => {
@@ -33,6 +41,17 @@ module.exports.createOffer = async (req, res) => {
     }
 
     const { offerPrice, message, phone } = req.body;
+    const normalizedPhone = normalizePhone(phone || req.user.phone);
+
+    if (!PHONE_REGEX.test(normalizedPhone)) {
+        req.flash("error", "Please provide a valid mobile number (10-15 digits)");
+        return res.redirect(`/listings/${id}`);
+    }
+
+    if (req.user.phone !== normalizedPhone) {
+        await User.findByIdAndUpdate(req.user._id, { phone: normalizedPhone });
+        req.user.phone = normalizedPhone;
+    }
 
     const purchase = new Purchase({
         listing: listing._id,
@@ -40,7 +59,7 @@ module.exports.createOffer = async (req, res) => {
         owner: listing.owner._id,
         offerPrice,
         message,
-        phone,
+        phone: normalizedPhone,
     });
 
     await purchase.save();

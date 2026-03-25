@@ -1,13 +1,27 @@
 const User = require("../models/user.js");
 
+const PHONE_REGEX = /^\+?[0-9]{10,15}$/;
+
+const normalizePhone = (phone) => {
+    if (!phone || typeof phone !== "string") return "";
+    return phone.trim().replace(/[\s-]+/g, "");
+};
+
 module.exports.renderSignupForm = (req, res) => {
     res.render("users/signup.ejs");
 };
 
 module.exports.signup = async (req, res, next) => {
     try {
-        const { username, email, password } = req.body;
-        const newUser = new User({ email, username });
+        const { username, email, password, phone } = req.body;
+        const normalizedPhone = normalizePhone(phone);
+
+        if (!PHONE_REGEX.test(normalizedPhone)) {
+            req.flash("error", "Please provide a valid mobile number (10-15 digits)");
+            return res.redirect("/users/signup");
+        }
+
+        const newUser = new User({ email, username, phone: normalizedPhone });
         const registeredUser = await User.register(newUser, password);
         req.login(registeredUser, (err) => {
             if (err) return next(err);
